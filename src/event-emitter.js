@@ -150,6 +150,8 @@ export default class EventEmitter {
     for (var i = 0 ; i < len ; i++)
       if (evList[i].length > 0)
         this._addListener(evList[i], callback, context, weight);
+
+    return this;
   }
 
   /**
