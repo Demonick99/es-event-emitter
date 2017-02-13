@@ -135,6 +135,24 @@ export default class EventEmitter {
   }
 
   /**
+   * Add list of listeners.
+   *
+   * @param {string} eventList
+   * @param {function} callback
+   * @param {object|null} context - In than context will be called callback.
+   * @param {number} weight - Using for sorting callbacks calls.
+   *
+   * @return {this}
+   */
+  on(eventList, callback, context = null, weight = 1) {
+    var evList = eventList.split(',');
+    var len = evList.length;
+    for (var i = 0 ; i < len ; i++)
+      if (evList[i].length > 0)
+        this._addListener(evList[i], callback, context, weight);
+  }
+
+  /**
    * Add the listener.
    *
    * @param {string} eventName
@@ -144,7 +162,7 @@ export default class EventEmitter {
    *
    * @return {this}
    */
-  on(eventName, callback, context = null, weight = 1) {
+  _addListener(eventName, callback, context = null, weight = 1) {
     /* eslint no-unused-vars: 0 */
     const self = internal(this);
 
